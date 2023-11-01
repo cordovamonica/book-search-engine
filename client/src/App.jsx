@@ -1,5 +1,5 @@
 import './App.css';
-import { Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
@@ -7,6 +7,8 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import SearchBooks from './pages/SearchBooks';
+import SavedBooks from './pages/SavedBooks';
 
 import Navbar from './components/Navbar';
 
@@ -32,10 +34,17 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Outlet />
-    </>
+    <ApolloProvider client={client}>
+    <Router>
+      <>
+        <Navbar />
+        <Switch>
+          <Route exact path='/' component={SearchBooks} />
+          <Route exact path='/saved' component={SavedBooks} />
+        </Switch>
+      </>
+    </Router>
+    </ApolloProvider>
   );
 }
 
