@@ -22,7 +22,11 @@ const server = new ApolloServer({
     app.use(express.static(path.join(__dirname, "../client/build")));
   }
 
-  const startApolloServer = async (typeDefs, resolvers) => {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  });
+
+  const startApolloServer = async () => {
     await server.start();
     server.applyMiddleware({ app });
   };
@@ -35,4 +39,4 @@ const server = new ApolloServer({
       );
     });
 
-startApolloServer(typeDefs, resolvers);
+startApolloServer();
