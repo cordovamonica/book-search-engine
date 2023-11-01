@@ -14,6 +14,7 @@ import { useMutation } from '@apollo/client';
 import { SAVE_BOOK } from '../utils/mutations';
 import { searchGoogleBooks } from '../utils/API';
 
+
 const SearchBooks = () => {
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
@@ -77,7 +78,7 @@ const SearchBooks = () => {
 
     try {
       await saveBook({
-        variables: { bookData: { ...bookToSave } },
+        variables: { bookData: bookToSave },
       });
 
       // if book successfully saves to user's account, save book id to state
